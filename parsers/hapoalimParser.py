@@ -14,7 +14,14 @@ class hapoalimParser(bankParser):
         Opens the input file/stream and gets ready to parse it.
         """
         bankParser.__init__(self, fileName, bankName)
-        ws = self.wb.get_sheet_by_name(self.wb.get_sheet_names()[0])
+        first_sheet = self.wb.get_sheet_names()[0]
+        self.ws = self.wb.get_sheet_by_name(first_sheet)
+        self.currentRow = 0
+        self.wsRows = []
+
+        # Get all rows
+        rowsToIter = "A1:G" + str(self.ws.get_highest_row())
+        self.wsRows = [row for row in self.ws.iter_rows(rowsToIter)]
 
     def hasMoreRecords(self):
         """
