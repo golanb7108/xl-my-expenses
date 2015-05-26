@@ -3,7 +3,7 @@ __author__ = 'gbenami'
 """
 xl-my-expenses - A utility for parsing a bank sheet into
 your expenses excel.
-Bank Parser is an interface for of different bank parsers.
+Bank Parser is an interface of different bank parsers.
 """
 
 from openpyxl import load_workbook
