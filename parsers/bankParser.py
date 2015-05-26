@@ -15,21 +15,13 @@ class bankParser(object):
         """
         self.fileName = fileName
         self.bankName = bankName
-        self.wb = load_workbook(filename = self.fileName, read_only=True)
+        self.wb = load_workbook(filename = self.fileName, read_only=False)
 
     def hasMoreRecords(self):
         """
-        Are there more records in the file.
+        Checks if there is more records, and sets the current record
+        to be the next record.
         :return: True if there are.
-        """
-        raise NotImplementedError( "bankParser is an abstract class" )
-
-    def advance(self):
-        """
-        Reads the next command from the input and makes it the
-        current command. Should be called only if hasMoreRecords()
-        is true. Initially there is no current command.
-        :return:
         """
         raise NotImplementedError( "bankParser is an abstract class" )
 

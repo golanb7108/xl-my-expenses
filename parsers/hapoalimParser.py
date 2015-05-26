@@ -7,6 +7,8 @@ your expenses excel.
 
 from openpyxl import load_workbook
 from bankParser import bankParser
+from debitRecord import debitRecord
+import re
 
 class hapoalimParser(bankParser):
     def __init__(self, fileName, bankName):
@@ -17,7 +19,11 @@ class hapoalimParser(bankParser):
         first_sheet = self.wb.get_sheet_names()[0]
         self.ws = self.wb.get_sheet_by_name(first_sheet)
         self.currentRow = 0
+        self.currentRecord = 0
         self.wsRows = []
+        self.recordsList = []
+        self.datePatt = [re.compile("(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})"),
+                         re.compile("(\d{2})/(\d{2})/(\d{4})")]
 
         # Get all rows
         rowsToIter = "A1:G" + str(self.ws.get_highest_row())
@@ -25,46 +31,54 @@ class hapoalimParser(bankParser):
 
     def hasMoreRecords(self):
         """
-        Are there more records in the file.
+        Checks if there is more records, and sets the current record
+        to be the next record.
         :return: True if there are.
         """
-        pass
+        while self.currentRow < len(self.wsRows):
+            currentRow = self.wsRows[self.currentRow]
+            self.currentRow += 1
 
-    def advance(self):
-        """
-        Reads the next command from the input and makes it the
-        current command. Should be called only if hasMoreRecords()
-        is true. Initially there is no current command.
-        :return:
-        """
-        pass
+            try:
+                firstCell = str(currentRow[0].value)
+                if any(regex.match(firstCell) for regex in self.datePatt):
+                    date = str(currentRow[0].value)
+                    collector = currentRow[1].value
+                    cost = str(currentRow[3].value)
+                    self.currentRecord = debitRecord(date, collector, cost)
+                    self.recordsList.append(self.currentRecord)
+                    return True
+            except Exception:
+                pass
+        # In case no more rows or no more records
+        return False
 
     def getRecord(self):
         """
         Get the current record.
         :return: the current record that is pointed.
         """
-        pass
+        return self.currentRecord
 
     def getDate(self):
         """
         Get the date of the expense.
         :return: return the date.
         """
-        pass
+        return self.currentRecord.getDate()
 
     def getCost(self):
         """
         Get the cost of the current record.
         :return: the cost.
         """
-        pass
+        return self.currentRecord.getCost()
 
     def getCollector(self):
         """
         Get the collector of the current record.
         :return: the Collector.
         """
-        pass
+        return self.currentRecord.getCollector()
 
 
