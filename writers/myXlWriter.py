@@ -10,7 +10,7 @@ my Xl Writer is an instance of XL writer.
 from openpyxl import load_workbook
 from xlWriter import xlWriter
 from openpyxl import workbook
-import constants
+from constants import constants
 
 class myXlWriter(xlWriter):
     def __init__(self, fileName, writerType):
@@ -30,16 +30,19 @@ class myXlWriter(xlWriter):
         expenseEndColumn = ''
         expenseEndRow = ''
         sheetName = constants.MONTH_NUM_TO_STRING[record.getDate().tm_mon]
-        if self.emptyRowsPerSheet[sheetName]:
-           self.emptyRowsPerSheet[sheetName][0] += 1
+        if sheetName in self.emptyRowsPerSheet:
+           self.emptyRowsPerSheet[sheetName] = (self.emptyRowsPerSheet[sheetName][0] + 1,
+                                                self.emptyRowsPerSheet[sheetName][1])
         else:
             self.ws = self.wb.get_sheet_by_name(sheetName)
-            recordsSignature = (constants.DATE_SIG, constants.CATEGORY_SIG,
-                                constants.DESCRIPTION_SIG, constants.COST_SIG)
+            recordsSignature = [constants.DATE_SIG, constants.CATEGORY_SIG,
+                                constants.DESCRIPTION_SIG, constants.COST_SIG]
 
             for row in self.ws.iter_rows(row_offset=1):
                 for cell in row:
-                    rowTuple = (row[ord(cell.column) - 96 + i] for i in range(4))
+                    if len(cell.column) > 1:
+                        break
+                    rowTuple = [row[ord(cell.column) - 96 + i].value for i in range(4)]
                     if rowTuple == recordsSignature:
                         expenseStartColumn = str(cell.column)
                         expenseStartRow = str(cell.row)
@@ -78,6 +81,7 @@ class myXlWriter(xlWriter):
         collectorSlot = "%s%s" % (str(chr(ord(emptyColumn.lower()) + 2)).upper(), str(emptyRow))
         costSlot = "%s%s" % (str(chr(ord(emptyColumn.lower()) + 3)).upper(), str(emptyRow))
 
-        self.ws[dateSlot] = record.getDate()
-        self.ws[collectorSlot] = record.getCollector()
-        self.ws[costSlot] = record.getCost()
+        self.ws[dateSlot].value = "%s/%s/%s" % (record.getDate().tm_mday,
+                                                record.getDate().tm_mon,record.getDate().tm_year)
+        self.ws[collectorSlot].value = record.getCollector()
+        self.ws[costSlot].value = record.getCost()
