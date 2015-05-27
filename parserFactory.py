@@ -12,5 +12,5 @@ class parserFactory(object):
     # Create based on parser name:
     @staticmethod
     def createParser(type, fileName):
-        if type == "hapoalim": return bankParser(fileName, type)
+        if type == "hapoalim": return hapoalimParser(fileName, type)
 
