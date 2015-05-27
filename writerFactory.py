@@ -9,7 +9,7 @@ from writers import *
 
 class writerFactory(object):
     # Create based on parser name:
+    @staticmethod
     def createWriter(type, fileName):
         if type == "my": return myXlWriter(fileName, type)
-    writerFactory = staticmethod(writerFactory)
 

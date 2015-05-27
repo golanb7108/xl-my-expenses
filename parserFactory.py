@@ -10,7 +10,7 @@ from parsers import *
 
 class parserFactory(object):
     # Create based on parser name:
+    @staticmethod
     def createParser(type, fileName):
         if type == "hapoalim": return bankParser(fileName, type)
-    parserFactory = staticmethod(parserFactory)
 
