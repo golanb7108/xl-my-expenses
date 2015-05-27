@@ -18,6 +18,12 @@ class xlWriter(object):
         self.writerType = writerType
         self.wb = load_workbook(filename = self.fileName, read_only=False)
 
+    def _findFreeRow(self, record):
+        """
+        Find free row to write records to.
+        """
+        raise NotImplementedError( "xlWriter is an abstract class" )
+
     def writeRecord(self, record):
         """
         Checks if there is more records, and sets the current record
