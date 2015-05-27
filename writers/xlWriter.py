@@ -32,5 +32,11 @@ class xlWriter(object):
         """
         raise NotImplementedError( "xlWriter is an abstract class" )
 
+    def saveFile(self):
+        """
+        Save the destination file.
+        """
+        self.wb.save(filename = self.fileName)
+
     def __str__(self):
         return "%s writer is writing to file %s." % (self.writerType, self.fileName)
