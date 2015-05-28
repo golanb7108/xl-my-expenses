@@ -66,7 +66,7 @@ class myXlWriter(xlWriter):
                     foundEmptyLine = False
             firstEmptyRow = emptyRow + int(expenseStartRow)
 
-            self.emptyRowsPerSheet[sheetName] = (firstEmptyRow, expenseStartColumn)
+            self.emptyRowsPerSheet[sheetName] = (firstEmptyRow, (chr(ord(expenseStartColumn.lower()) + 1)).upper())
 
         return self.emptyRowsPerSheet[sheetName]
 
