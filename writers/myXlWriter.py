@@ -38,11 +38,11 @@ class myXlWriter(xlWriter):
             recordsSignature = [constants.DATE_SIG, constants.CATEGORY_SIG,
                                 constants.DESCRIPTION_SIG, constants.COST_SIG]
 
-            for row in self.ws.iter_rows(row_offset=1):
+            for row in self.ws.iter_rows(row_offset=0):
                 for cell in row:
-                    if len(cell.column) > 1:
+                    if len(cell.column) > 1 or ord(cell.column) - 64 + 3 >= len(row):
                         break
-                    rowTuple = [row[ord(cell.column) - 96 + i].value for i in range(4)]
+                    rowTuple = [row[ord(cell.column) - 64 + i].value for i in range(4)]
                     if rowTuple == recordsSignature:
                         expenseStartColumn = str(cell.column)
                         expenseStartRow = str(cell.row)
