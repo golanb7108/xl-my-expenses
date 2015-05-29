@@ -30,6 +30,7 @@ class myXlWriter(xlWriter):
         expenseEndColumn = ''
         expenseEndRow = ''
         sheetName = constants.MONTH_NUM_TO_STRING[record.getDate().tm_mon]
+        # check if already found the the empty row
         if sheetName in self.emptyRowsPerSheet:
            self.emptyRowsPerSheet[sheetName] = (self.emptyRowsPerSheet[sheetName][0] + 1,
                                                 self.emptyRowsPerSheet[sheetName][1])
