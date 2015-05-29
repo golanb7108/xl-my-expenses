@@ -17,6 +17,7 @@ class xlWriter(object):
         self.fileName = fileName
         self.writerType = writerType
         self.wb = load_workbook(filename = self.fileName, read_only=False)
+        self.infoToSave = {}
 
     def _findFreeRow(self, record):
         """
@@ -32,11 +33,19 @@ class xlWriter(object):
         """
         raise NotImplementedError( "xlWriter is an abstract class" )
 
-    def saveFile(self):
+    def saveFile(self, accountManageFileName):
         """
         Save the destination file.
         """
-        self.wb.save(filename = self.fileName)
+        from xlwings import Workbook, Range
+
+        wb = Workbook(accountManageFileName)
+        for placeToWrite in self.infoToSave:
+            sheet = placeToWrite[0]
+            cell = placeToWrite[1]
+            data = self.infoToSave[placeToWrite]
+            Range(sheet, cell).value = data
+        wb.save(accountManageFileName)
 
     def __str__(self):
         return "%s writer is writing to file %s." % (self.writerType, self.fileName)

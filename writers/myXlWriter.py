@@ -82,7 +82,7 @@ class myXlWriter(xlWriter):
         collectorSlot = "%s%s" % (str(chr(ord(emptyColumn.lower()) + 2)).upper(), str(emptyRow))
         costSlot = "%s%s" % (str(chr(ord(emptyColumn.lower()) + 3)).upper(), str(emptyRow))
 
-        self.ws[dateSlot].value = "%s/%s/%s" % (record.getDate().tm_mday,
-                                                record.getDate().tm_mon,record.getDate().tm_year)
-        self.ws[collectorSlot].value = record.getCollector()
-        self.ws[costSlot].value = record.getCost()
+        self.infoToSave[(self.ws.title, dateSlot)] = "%s/%s/%s" % (record.getDate().tm_mday,
+                                                                   record.getDate().tm_mon,record.getDate().tm_year)
+        self.infoToSave[(self.ws.title, collectorSlot)] = record.getCollector()
+        self.infoToSave[(self.ws.title, costSlot)] = record.getCost()
