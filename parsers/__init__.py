@@ -6,7 +6,7 @@ your expenses excel.
 __init__.py is an importing script.
 """
 
-__all__ = ['bankParser', 'hapoalimParser']
+__all__ = ['bankParser', 'hapoalimCreditParser']
 # deprecated to keep older scripts who import this from breaking
 from parsers.bankParser import bankParser
-from parsers.hapoalimParser import hapoalimParser
+from parsers.hapoalimCreditParser import hapoalimCreditParser

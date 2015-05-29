@@ -11,7 +11,7 @@ from bankParser import bankParser
 from debitRecord import debitRecord
 import re
 
-class hapoalimParser(bankParser):
+class hapoalimCreditParser(bankParser):
     def __init__(self, fileName, bankName):
         """
         Opens the input file/stream and gets ready to parse it.
