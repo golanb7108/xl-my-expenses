@@ -3,7 +3,7 @@ __author__ = 'gbenami'
 """
 xl-my-expenses - A utility for parsing a bank sheet into
 your expenses excel.
-HaPoalim Parser is an instance of a bank parser for hapoalim.
+HaPoalim Credit Parser is an instance of a bank parser for hapoalim.
 """
 
 from openpyxl import load_workbook
