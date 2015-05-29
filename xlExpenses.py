@@ -10,18 +10,21 @@ def main():
     """
     Main function.
     """
+    # Assign all program argument to local variables
     bankName = sys.argv[1]
     creditFileName = sys.argv[2]
     xlType = sys.argv[3]
     accountManageFileName = sys.argv[4]
-    saveToFile = sys.argv[5]
+
     parser = parserFactory.createParser(bankName, creditFileName)
     writer = writerFactory.createWriter(xlType, accountManageFileName)
 
+    # Read from parser and write to file
     while parser.hasMoreRecords():
         record = parser.getRecord()
         writer.writeRecord(record = record)
 
+    # Save file
     writer.saveFile(accountManageFileName)
 
 if __name__ == "__main__":
