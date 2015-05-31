@@ -20,3 +20,4 @@ XL_TYPE_TO_WRITE = "Write to expenses type"
 FILE_TYPES = [XL_TYPE_TO_WRITE, DATA_TYPE_TO_PARSE]
 RAW_DATA_FILE = "Data File"
 TARGET_EXPENSE_FILE = "Expenses File"
+LOGO_PATH = r'C:\Users\gbenami\PycharmProjects\xl-my-expenses\periphery\logo.ico'
