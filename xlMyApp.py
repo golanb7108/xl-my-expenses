@@ -15,7 +15,8 @@ class xlMyApp:
         self.root.mainloop()
 
     def addItems(self):
-        uiFields = [constants.DATA_TYPE_TO_PARSE, constants.RAW_DATA_FILE, constants.XL_TYPE_TO_WRITE, constants.TARGET_EXPENSE_FILE]
+        uiFields = [constants.DATA_TYPE_TO_PARSE, constants.RAW_DATA_FILE,
+                    constants.XL_TYPE_TO_WRITE, constants.TARGET_EXPENSE_FILE]
         ents = self.makeForm(self.root, uiFields)
         self.root.bind('<Return>', (lambda event, e=ents: self.fetch(e)))
         self.addButton("Quit", self.root.quit)
