@@ -3,18 +3,23 @@ __author__ = 'gbenami'
 from parsers import hapoalimCreditParser
 import sys
 from parserFactory import parserFactory
+from xlMyApp import xlMyApp
 from writerFactory import writerFactory
-from xlwings import Workbook, Range
+from Tkinter import *
 
 def main():
     """
     Main function.
     """
+    # init the xl my expenses app
+    root = Tk()
+    app = xlMyApp(root)
+
     # Assign all program argument to local variables
-    bankName = sys.argv[1]
-    creditFileName = sys.argv[2]
-    xlType = sys.argv[3]
-    accountManageFileName = sys.argv[4]
+    bankName = str(app.bankName)
+    creditFileName = str(app.creditFileName)
+    xlType = str(app.xlType)
+    accountManageFileName = str(app.accountManageFileName)
 
     parser = parserFactory.createParser(bankName, creditFileName)
     writer = writerFactory.createWriter(xlType, accountManageFileName)
