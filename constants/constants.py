@@ -21,3 +21,5 @@ FILE_TYPES = [XL_TYPE_TO_WRITE, DATA_TYPE_TO_PARSE]
 RAW_DATA_FILE = "Data File"
 TARGET_EXPENSE_FILE = "Expenses File"
 LOGO_PATH = r'C:\Users\gbenami\PycharmProjects\xl-my-expenses\periphery\logo.ico'
+VERSION = "v0.01"
+DOWNLOAD_URL = "https://github.com/golanb7108/xl-my-expenses"
