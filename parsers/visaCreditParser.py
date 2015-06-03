@@ -6,16 +6,16 @@ your expenses excel.
 HaPoalim Credit Parser is an instance of a bank parser for hapoalim.
 """
 
-from bankParser import bankParser
+from billingDataParser import billingDataParser
 from debitRecord import debitRecord
 from constants import constants
 
-class visaCreditParser(bankParser):
+class visaCreditParser(billingDataParser):
     def __init__(self, fileName, bankName):
         """
         Opens the input file/stream and gets ready to parse it.
         """
-        bankParser.__init__(self, fileName, bankName)
+        billingDataParser.__init__(self, fileName, bankName)
 
     def hasMoreRecords(self):
         """

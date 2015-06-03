@@ -9,7 +9,7 @@ Bank Parser is an interface of different bank parsers.
 from openpyxl import load_workbook
 import re
 
-class bankParser(object):
+class billingDataParser(object):
     def __init__(self, fileName, bankName):
         """
         Opens the input file/stream and gets ready to parse it.
