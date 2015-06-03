@@ -7,6 +7,9 @@ your expenses excel.
 constants.py holds all of the constants in the project.
 """
 
+import re
+
+
 DATE_SIG = u"תאריך"
 CATEGORY_SIG = u"קטגוריה"
 DESCRIPTION_SIG = u"תיאור"
@@ -23,3 +26,5 @@ TARGET_EXPENSE_FILE = "Expenses File"
 LOGO_PATH = r'C:\Users\gbenami\PycharmProjects\xl-my-expenses\periphery\logo.ico'
 VERSION = "v0.01"
 DOWNLOAD_URL = "https://github.com/golanb7108/xl-my-expenses"
+DATE_PATT = [re.compile("(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})"),
+            re.compile("(\d{2})/(\d{2})/(\d{4})")]

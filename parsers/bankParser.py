@@ -23,8 +23,6 @@ class bankParser(object):
         self.currentRecord = 0
         self.wsRows = []
         self.recordsList = []
-        self.datePatt = [re.compile("(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})"),
-                         re.compile("(\d{2})/(\d{2})/(\d{4})")]
 
         # Get all rows
         rowsToIter = "A1:G" + str(self.ws.get_highest_row())

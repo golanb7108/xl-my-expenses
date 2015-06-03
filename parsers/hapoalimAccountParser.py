@@ -8,6 +8,7 @@ HaPoalim Account Parser is an instance of a bank parser for hapoalim.
 
 from bankParser import bankParser
 from debitRecord import debitRecord
+from constants import constants
 
 class hapoalimAccountParser(bankParser):
     def __init__(self, fileName, bankName):
@@ -28,7 +29,7 @@ class hapoalimAccountParser(bankParser):
 
             try:
                 firstCell = str(currentRow[0].value)
-                if any(regex.match(firstCell) for regex in self.datePatt) and \
+                if any(regex.match(firstCell) for regex in constants.DATE_PATT) and \
                                 currentRow[4].value is not None:
                     date = str(currentRow[0].value)
                     collector = currentRow[1].value

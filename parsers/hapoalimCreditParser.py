@@ -8,6 +8,7 @@ HaPoalim Credit Parser is an instance of a bank parser for hapoalim.
 
 from bankParser import bankParser
 from debitRecord import debitRecord
+from constants import constants
 
 class hapoalimCreditParser(bankParser):
     def __init__(self, fileName, bankName):
@@ -28,7 +29,7 @@ class hapoalimCreditParser(bankParser):
 
             try:
                 firstCell = str(currentRow[0].value)
-                if any(regex.match(firstCell) for regex in self.datePatt):
+                if any(regex.match(firstCell) for regex in constants.DATE_PATT):
                     date = str(currentRow[0].value)
                     collector = currentRow[1].value
                     cost = str(currentRow[3].value)
