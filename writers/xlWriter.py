@@ -7,7 +7,6 @@ xl Writer is an interface of different xl writers.
 """
 
 from openpyxl import load_workbook
-from openpyxl import workbook
 
 class xlWriter(object):
     def __init__(self, fileName, writerType):

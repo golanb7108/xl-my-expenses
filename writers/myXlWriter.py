@@ -7,9 +7,7 @@ your expenses excel.
 my Xl Writer is an instance of XL writer.
 """
 
-from openpyxl import load_workbook
 from xlWriter import xlWriter
-from openpyxl import workbook
 from constants import constants
 
 class myXlWriter(xlWriter):

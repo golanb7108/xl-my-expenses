@@ -7,8 +7,6 @@ HaPoalim Account Parser is an instance of a bank parser for hapoalim.
 """
 
 from billingDataParserByIndex import billingDataParserByIndex
-from debitRecord import debitRecord
-from constants import constants
 
 class hapoalimAccountParser(billingDataParserByIndex):
     def __init__(self, fileName, bankName, costIndex):

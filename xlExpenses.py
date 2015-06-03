@@ -1,7 +1,5 @@
 __author__ = 'gbenami'
 
-from parsers import hapoalimCreditParser
-import sys
 from parserFactory import parserFactory
 from xlMyApp import xlMyApp
 from writerFactory import writerFactory

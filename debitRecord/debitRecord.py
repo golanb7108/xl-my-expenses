@@ -6,7 +6,6 @@ your expenses excel.
 Debit Record represents a debit credit card record.
 """
 import time
-import re
 from constants import constants
 
 class debitRecord(object):
