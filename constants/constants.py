@@ -29,3 +29,6 @@ VERSION = "v0.01"
 DOWNLOAD_URL = "https://github.com/golanb7108/xl-my-expenses"
 DATE_PATT = [re.compile("(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})"),
             re.compile("(\d{2})/(\d{2})/(\d{4})"), re.compile("(\d{2})/(\d{2})/(\d{2})")]
+HAPOALIM_CREDIT_COST_INDEX = 3
+HAPOALIM_ACCOUNT_COST_INDEX = 4
+VISA_CREDIT_COST_INDEX = 4

@@ -27,7 +27,8 @@ def main():
     # Read from parser and write to file
     while parser.hasMoreRecords():
         record = parser.getRecord()
-        writer.writeRecord(record = record)
+        if record.getCost() != "None":
+            writer.writeRecord(record = record)
 
     # Save file
     writer.saveFile(accountManageFileName)
