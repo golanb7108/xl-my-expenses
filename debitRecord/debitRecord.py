@@ -18,6 +18,8 @@ class debitRecord(object):
             fmt_date = time.strptime(date, "%Y-%d-%m %H:%M:%S")
         elif constants.DATE_PATT[1].match(date):
             fmt_date = time.strptime(date, "%d/%m/%Y")
+        elif constants.DATE_PATT[2].match(date):
+            fmt_date = time.strptime(date, "%d/%m/%y")
 
         self.date = fmt_date
         self.collector = collector
