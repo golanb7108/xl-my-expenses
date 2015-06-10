@@ -11,6 +11,8 @@ to your own expenses excel.
 
 - `xlmywings` for writing to the target excel.
 - `openpyxl` for reading the source excel.
+- `lxml` for windows handling .
+- `pywin32` for windows handling .
 
 ## Installation
 
