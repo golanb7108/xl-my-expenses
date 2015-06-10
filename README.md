@@ -11,8 +11,9 @@ to your own expenses excel.
 
 - `xlmywings` for writing to the target excel.
 - `openpyxl` for reading the source excel.
-- `lxml` for windows handling .
-- `pywin32` for windows handling .
+- `lxml` for windows handling.
+- `pywin32` for windows handling.
+- `xlrd` for reading excels. (installation description later)
 
 ## Installation
 
@@ -24,6 +25,12 @@ like `pip`:
 For getting the xl-my-expenses code:
 
     $ git clone https://github.com/golanb7108/xl-my-expenses.git
+
+For installing xlrd:
+- Unpack it to Python\Lib( for ex. ‘c:\Python27\Lib\xlrd-0.9.3\’)
+- Find out setup.py file location(for ex. ‘c:\Python27\Lib\xlrd-0.9.3\setup.py’)
+- Run command line(cmd.exe)
+- Type ‘python setup.py install’ inside of opened console
 
 ## Usage
 

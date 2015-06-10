@@ -32,3 +32,4 @@ DATE_PATT = [re.compile("(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})"),
 HAPOALIM_CREDIT_COST_INDEX = 3
 HAPOALIM_ACCOUNT_COST_INDEX = 4
 VISA_CREDIT_COST_INDEX = 4
+MAX_COL_NUM = 17

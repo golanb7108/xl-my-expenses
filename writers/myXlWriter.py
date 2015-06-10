@@ -9,6 +9,7 @@ my Xl Writer is an instance of XL writer.
 
 from xlWriter import xlWriter
 from constants import constants
+from xlrd.book import colname
 
 class myXlWriter(xlWriter):
     def __init__(self, fileName, writerType):
@@ -22,51 +23,49 @@ class myXlWriter(xlWriter):
         """
         Find free row to write records to.
         """
-        rowsToIter = None
-        expenseStartColumn = ''
-        expenseStartRow = ''
-        expenseEndColumn = ''
-        expenseEndRow = ''
+        expenseStartColumn, expenseStartRow, expenseEndColumn, expenseEndRow = 0, 0, 0, 0
         sheetName = constants.MONTH_NUM_TO_STRING[record.getDate().tm_mon]
+
         # check if already found the the empty row
         if sheetName in self.emptyRowsPerSheet:
            self.emptyRowsPerSheet[sheetName] = (self.emptyRowsPerSheet[sheetName][0] + 1,
                                                 self.emptyRowsPerSheet[sheetName][1])
         else:
-            self.ws = self.wb.get_sheet_by_name(sheetName)
+            self.ws = self.wb.sheet_by_name(sheetName)
             recordsSignature = [constants.DATE_SIG, constants.CATEGORY_SIG,
                                 constants.DESCRIPTION_SIG, constants.COST_SIG]
+            num_rows = self.ws.nrows - 1
+            num_cells = self.ws.ncols - 1
+            curr_row = -1
 
-            for row in self.ws.iter_rows(row_offset=0):
-                for cell in row:
-                    if len(cell.column) > 1 or ord(cell.column) - 64 + 3 >= len(row):
+            while curr_row < num_rows:
+                curr_row += 1
+                curr_cell = -1
+                while curr_cell < num_cells:
+                    if curr_cell > constants.MAX_COL_NUM:
                         break
-                    rowTuple = [row[ord(cell.column) - 64 + i].value for i in range(4)]
+                    curr_cell += 1
+
+                    rowTuple = [self.ws.cell_value(curr_row, curr_cell + i) for i in range(4)]
                     if rowTuple == recordsSignature:
-                        expenseStartColumn = str(cell.column)
-                        expenseStartRow = str(cell.row)
-                        expenseEndColumn = str(chr(ord(cell.column.lower()) + 3)).upper()
-                        expenseEndRow = str(cell.row + 56)
-                        rowsToIter = "%s%s:%s%s" % (expenseStartColumn, expenseStartRow,
-                                                    expenseEndColumn, expenseEndRow)
+                        expenseStartColumn = curr_cell
+                        expenseStartRow = curr_row + 1
+                        expenseEndColumn = curr_cell + 4
 
-            if rowsToIter == None:
-                raise ValueError('The sheet does not have an expenses table.')
+            wsRows = [self.ws.row_values(rowx=expenseStartRow + i, start_colx=expenseStartColumn, end_colx=expenseEndColumn)
+                      for i in range(num_rows - expenseStartRow)]
 
-            wsRows = [row for row in self.ws.iter_rows(rowsToIter)]
             foundEmptyLine = False
             emptyRow = -1
             for rowNumber, line in enumerate(wsRows):
-                currentRow = (line[i].value for i in range(4))
-                if all(item is None for item in currentRow) and not foundEmptyLine:
+                if all(item == "" for item in line) and not foundEmptyLine:
                     foundEmptyLine = True
-                    emptyRow = rowNumber
-                elif not all(item is None for item in currentRow) and foundEmptyLine:
+                    emptyRow = rowNumber + 1
+                elif not all(item == "" for item in line) and foundEmptyLine:
                     foundEmptyLine = False
             firstEmptyRow = emptyRow + int(expenseStartRow)
 
-            self.emptyRowsPerSheet[sheetName] = (firstEmptyRow, (chr(ord(expenseStartColumn.lower()) + 1)).upper())
-
+            self.emptyRowsPerSheet[sheetName] = (firstEmptyRow, colname(colx=expenseStartColumn))
         return self.emptyRowsPerSheet[sheetName]
 
     def writeRecord(self, record):
@@ -80,7 +79,7 @@ class myXlWriter(xlWriter):
         collectorSlot = "%s%s" % (str(chr(ord(emptyColumn.lower()) + 2)).upper(), str(emptyRow))
         costSlot = "%s%s" % (str(chr(ord(emptyColumn.lower()) + 3)).upper(), str(emptyRow))
 
-        self.infoToSave[(self.ws.title, dateSlot)] = "%s/%s/%s" % (record.getDate().tm_mday,
+        self.infoToSave[(self.ws.name, dateSlot)] = "%s/%s/%s" % (record.getDate().tm_mday,
                                                                    record.getDate().tm_mon,record.getDate().tm_year)
-        self.infoToSave[(self.ws.title, collectorSlot)] = record.getCollector()
-        self.infoToSave[(self.ws.title, costSlot)] = record.getCost()
+        self.infoToSave[(self.ws.name, collectorSlot)] = record.getCollector()
+        self.infoToSave[(self.ws.name, costSlot)] = record.getCost()

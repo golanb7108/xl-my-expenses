@@ -6,7 +6,7 @@ your expenses excel.
 xl Writer is an interface of different xl writers.
 """
 
-from openpyxl import load_workbook
+from xlrd import open_workbook
 
 class xlWriter(object):
     def __init__(self, fileName, writerType):
@@ -15,7 +15,7 @@ class xlWriter(object):
         """
         self.fileName = fileName
         self.writerType = writerType
-        self.wb = load_workbook(filename = self.fileName, read_only=False)
+        self.wb = open_workbook(filename = self.fileName)
         self.infoToSave = {}
 
     def _findFreeRow(self, record):
