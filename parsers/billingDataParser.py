@@ -24,7 +24,7 @@ class billingDataParser(object):
         self.recordsList = []
 
         # Get all rows
-        rowsToIter = "A1:G" + str(self.ws.get_highest_row())
+        rowsToIter = "A1:Q" + str(self.ws.get_highest_row())
         self.wsRows = [row for row in self.ws.iter_rows(rowsToIter)]
 
     def hasMoreRecords(self):
